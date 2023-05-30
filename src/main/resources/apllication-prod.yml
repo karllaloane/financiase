@@ -1,3 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:financiase_prod
+    driverClassName: org.h2.Driver
+    username: sa
+    password: a
+  jpa:
+    database-plataform: org.hibernate.dialect.H2Dialect
+    show-sql: fakse
+    properties:
+      hibernate:
+        format_sql: false
+  h2:
+    console:
+      enable: false
+
 logging:
   level:
     br:
