@@ -6,7 +6,7 @@ spring:
     password: a
   jpa:
     database-plataform: org.hibernate.dialect.H2Dialect
-    show-sql: fakse
+    show-sql: false
     properties:
       hibernate:
         format_sql: false

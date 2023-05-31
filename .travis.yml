@@ -1,6 +1,5 @@
 dist: xenial
 language: java
-sudo: false
 jdk: openjdk20
 install: true
 addon:
@@ -8,6 +7,8 @@ addon:
     organization: $SONAR_ORGANIZATION
     token: $SONAR_TOKEN
 script: :
+  - java --version
+  - ./mvnw clean install
   - mvn clean package sonar:sonar -P sonar
 cache:
   directories:
