@@ -17,7 +17,7 @@ public class Reward {
     @Column(nullable = false, columnDefinition = "DOUBLE PRECISION")
     private double minValue = 0.0;
 
-    @Column(nullable = false, columnDefinition = "double PRECISION")
+    @Column(nullable = false, columnDefinition = "DOUBLE PRECISION")
     private double maxValue = 0.0;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
