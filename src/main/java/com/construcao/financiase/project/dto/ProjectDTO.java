@@ -2,9 +2,7 @@ package com.construcao.financiase.project.dto;
 
 import com.construcao.financiase.project.enums.Category;
 import com.construcao.financiase.project.enums.Status;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +18,7 @@ public class ProjectDTO {
 
     @NotNull
     @NotEmpty
-    @Size(max = 255)
+    @Size(max = 100)
     private String title;
 
     @NotNull
@@ -34,17 +32,17 @@ public class ProjectDTO {
     private String description;
 
     @NotNull
-    @NotEmpty
     private Category category;
 
     @NotNull
-    @NotEmpty
     private Status status;
 
     @NotNull
+    @FutureOrPresent
     private LocalDate startDate;
 
     @NotNull
+    @Future
     private LocalDate endDate;
 
 }

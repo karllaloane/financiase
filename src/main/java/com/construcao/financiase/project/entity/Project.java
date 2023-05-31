@@ -3,7 +3,7 @@ package com.construcao.financiase.project.entity;
 import com.construcao.financiase.project.enums.Category;
 import com.construcao.financiase.project.enums.Status;
 import com.construcao.financiase.reward.entity.Reward;
-import com.construcao.financiase.user.entity.User;
+import com.construcao.financiase.user.entity.Users;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,7 +18,7 @@ public class Project {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String title;
 
     @Column(nullable = false)
@@ -45,5 +45,5 @@ public class Project {
     private List<Reward> rewards;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
-    private User owner;
+    private Users owner;
 }

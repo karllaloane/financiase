@@ -14,11 +14,11 @@ public class Reward {
 
     private String description;
 
-    @Column(nullable = false, columnDefinition = "double default 0")
-    private double minValue;
+    @Column(nullable = false, columnDefinition = "DOUBLE PRECISION")
+    private double minValue = 0.0;
 
-    @Column(nullable = false, columnDefinition = "double default 0")
-    private double maxValue;
+    @Column(nullable = false, columnDefinition = "double PRECISION")
+    private double maxValue = 0.0;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     private Project project;
