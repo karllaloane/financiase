@@ -2,17 +2,20 @@ package com.construcao.financiase.user.entity;
 
 import com.construcao.financiase.project.entity.Project;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 @Entity
-public class Users {
+@Table(name = "\"Users\"")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 30)
     private String username;
 
     @Column(nullable = false, unique = true, length = 100)

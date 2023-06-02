@@ -3,7 +3,7 @@ package com.construcao.financiase.project.entity;
 import com.construcao.financiase.project.enums.Category;
 import com.construcao.financiase.project.enums.Status;
 import com.construcao.financiase.reward.entity.Reward;
-import com.construcao.financiase.user.entity.Users;
+import com.construcao.financiase.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -45,5 +45,5 @@ public class Project {
     private List<Reward> rewards;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
-    private Users owner;
+    private User owner;
 }

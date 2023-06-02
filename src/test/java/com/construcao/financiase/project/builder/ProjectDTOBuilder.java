@@ -4,7 +4,6 @@ import com.construcao.financiase.project.dto.ProjectDTO;
 import com.construcao.financiase.project.enums.Category;
 import com.construcao.financiase.project.enums.Status;
 import lombok.Builder;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import java.time.LocalDate;
 
