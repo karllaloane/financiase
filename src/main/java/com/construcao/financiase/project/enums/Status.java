@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Status {
 
+    PENDING("Pendente"),
     ACTIVE("Ativo"),
     PAUSED("Pausado"),
     CLOSED("Encerrado");
