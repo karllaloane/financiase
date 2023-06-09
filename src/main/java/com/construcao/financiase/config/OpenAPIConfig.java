@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableJpaAuditing
 public class OpenAPIConfig {
 
     private static final String BASE_PACKAGE = "com.construcao.financiase";
