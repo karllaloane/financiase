@@ -1,5 +1,6 @@
 package com.construcao.financiase.user.entity;
 
+import com.construcao.financiase.entity.Auditable;
 import com.construcao.financiase.project.entity.Project;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "\"Users\"")
-public class User {
+public class User extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

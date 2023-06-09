@@ -71,4 +71,35 @@ public class UserControllerTest {
                         .content(JsonConversionUtils.asJsonString(userToCreateDTO)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
+
+    @Test
+    void whenDELETEIsCalledThenNoContentShoulBeInformed() throws Exception {
+        UserDTO userToDeleteDTO = userDTOBuilder.buildUserDTO();
+        var userToDeleteId= userToDeleteDTO.getId();
+
+        Mockito.doNothing().when(userService).delete(userToDeleteId);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete(USERS_API_URL_PATH + "/" + userToDeleteId)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
+    }
+
+    @Test
+    void whenPUTItsCalledThenOkStatusShouldBeReturned() throws Exception {
+        UserDTO userToUpdateDTO = userDTOBuilder.buildUserDTO();
+        userToUpdateDTO.setUsername("gabrielupdate");
+        String updatedMessage = "User gabrielupdate with ID 9 is successfully updated";
+        MessageDTO updatedMessageDTO = MessageDTO.builder().message(updatedMessage).build();
+
+        var userToUpdateId = userToUpdateDTO.getId();
+
+        Mockito.when(userService.update(userToUpdateId, userToUpdateDTO)).thenReturn(updatedMessageDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.put(USERS_API_URL_PATH + "/" + userToUpdateId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonConversionUtils.asJsonString(userToUpdateDTO)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.is(updatedMessage)));
+    }
 }

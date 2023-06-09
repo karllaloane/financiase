@@ -1,12 +1,13 @@
 package com.construcao.financiase.reward.entity;
 
+import com.construcao.financiase.entity.Auditable;
 import com.construcao.financiase.project.entity.Project;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-public class Reward {
+public class Reward  extends Auditable {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
