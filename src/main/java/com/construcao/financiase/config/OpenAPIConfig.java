@@ -6,9 +6,11 @@ import io.swagger.v3.oas.models.info.Info;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
 @RequiredArgsConstructor
+@EnableJpaAuditing
 public class OpenAPIConfig {
 
     private static final String BASE_PACKAGE = "com.construcao.financiase";

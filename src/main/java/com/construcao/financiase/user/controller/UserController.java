@@ -24,4 +24,15 @@ public class UserController implements UserControllerDocs{
     public MessageDTO create(@RequestBody @Valid UserDTO userToCreateDTO){
         return userService.create(userToCreateDTO);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    public MessageDTO update(@PathVariable Long id, @RequestBody @Valid UserDTO userToUpdateDTO) {
+        return userService.update(id, userToUpdateDTO);
+    }
 }
