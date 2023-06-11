@@ -15,7 +15,7 @@ public class MessageDTOUtils {
 
     private static MessageDTO returnMessage(User updatedUser, String action) {
 
-        String email = updatedUser.getUsername();
+        String email = updatedUser.getEmail();
         Long id = updatedUser.getId();
 
         String message = String.format("User %s with ID %s was successfully %s", email, id, action);

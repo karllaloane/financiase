@@ -9,7 +9,6 @@ import com.construcao.financiase.user.mapper.UserMapper;
 import com.construcao.financiase.user.repository.UserRepository;
 import com.construcao.financiase.user.service.UserService;
 import com.construcao.financiase.users.builder.UserDTOBuilder;
-import jakarta.validation.constraints.AssertTrue;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
@@ -21,7 +20,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.Assert;
 
 import java.util.Optional;
 
@@ -50,7 +48,7 @@ public class UserServiceTest {
     void whenNewUserIsInformedThenItShouldBeCreated(){
         UserDTO createdUserDTO = userDTOBuilder.buildUserDTO();
         User createdUser = userMapper.toModel(createdUserDTO);
-        String expectedCreationMessage = "User gabriel@teste.com with ID 9 is successfully created";
+        String expectedCreationMessage = "User gabriel@teste.com with ID 9 was successfully created";
 
         String expectedUsername = createdUserDTO.getUsername();
         String expectedEmail = createdUserDTO.getEmail();
@@ -124,7 +122,7 @@ public class UserServiceTest {
         UserDTO updatedUserDTO = userDTOBuilder.buildUserDTO();
         updatedUserDTO.setUsername("gabrielUpdate");
         User updateduser = userMapper.toModel(updatedUserDTO);
-        String updatedMessage = "User gabriel@teste.com with ID 9 is successfully updated";
+        String updatedMessage = "User gabriel@teste.com with ID 9 was successfully updated";
 
         Mockito.when(userRepository.findById(updatedUserDTO.getId())).thenReturn(Optional.of(updateduser));
         Mockito.when((passwordEncoder.encode(updateduser.getPassword()))).thenReturn(updateduser.getPassword());
