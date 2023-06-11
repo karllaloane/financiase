@@ -1,6 +1,9 @@
 package com.construcao.financiase.users.builder;
 
 import com.construcao.financiase.user.dto.UserDTO;
+import com.construcao.financiase.user.enums.Role;
+import jakarta.persistence.Column;
+import jakarta.persistence.Enumerated;
 import lombok.Builder;
 
 @Builder
@@ -18,7 +21,10 @@ public class UserDTOBuilder {
     @Builder.Default
     private String password = "12345678";
 
+    @Builder.Default
+    private Role role = Role.USER;
+
     public UserDTO buildUserDTO(){
-        return new UserDTO(id, username, email, password);
+        return new UserDTO(id, username, email, password, role);
     }
 }

@@ -33,4 +33,11 @@ public interface UserControllerDocs {
             @ApiResponse(responseCode = "400", description = "Missing required field or an erros on validation field")
     })
     MessageDTO update(@PathVariable Long id, @RequestBody @Valid UserDTO userToUpdateDTO);
+
+    /*@Operation(summary = "User authentication operation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success user authenticated"),
+            @ApiResponse(responseCode = "400", description = "User not found")
+    })*/
+    //JwtResponse createAuthenticationToken(JwtRequest jwtRequest);
 }
