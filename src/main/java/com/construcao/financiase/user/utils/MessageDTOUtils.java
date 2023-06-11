@@ -15,10 +15,10 @@ public class MessageDTOUtils {
 
     private static MessageDTO returnMessage(User updatedUser, String action) {
 
-        String username = updatedUser.getUsername();
+        String email = updatedUser.getUsername();
         Long id = updatedUser.getId();
 
-        String message = String.format("User %s with ID %s is successfully %s", username, id, action);
+        String message = String.format("User %s with ID %s was successfully %s", email, id, action);
 
         return MessageDTO.builder()
                 .message(message)

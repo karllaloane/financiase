@@ -20,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
 
 import java.util.Optional;
@@ -31,6 +32,9 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @InjectMocks
     private UserService userService;
@@ -46,13 +50,14 @@ public class UserServiceTest {
     void whenNewUserIsInformedThenItShouldBeCreated(){
         UserDTO createdUserDTO = userDTOBuilder.buildUserDTO();
         User createdUser = userMapper.toModel(createdUserDTO);
-        String expectedCreationMessage = "User gabriel with ID 9 is successfully created";
+        String expectedCreationMessage = "User gabriel@teste.com with ID 9 is successfully created";
 
         String expectedUsername = createdUserDTO.getUsername();
         String expectedEmail = createdUserDTO.getEmail();
 
         Mockito.when(userRepository.findByUsername(expectedUsername)).thenReturn(Optional.empty());
         Mockito.when(userRepository.findByEmail(expectedEmail)).thenReturn(Optional.empty());
+        Mockito.when((passwordEncoder.encode(createdUser.getPassword()))).thenReturn(createdUser.getPassword());
         Mockito.when(userRepository.save(createdUser)).thenReturn(createdUser);
 
         MessageDTO creationMessage = userService.create(createdUserDTO);
@@ -119,9 +124,10 @@ public class UserServiceTest {
         UserDTO updatedUserDTO = userDTOBuilder.buildUserDTO();
         updatedUserDTO.setUsername("gabrielUpdate");
         User updateduser = userMapper.toModel(updatedUserDTO);
-        String updatedMessage = "User gabrielUpdate with ID 9 is successfully updated";
+        String updatedMessage = "User gabriel@teste.com with ID 9 is successfully updated";
 
         Mockito.when(userRepository.findById(updatedUserDTO.getId())).thenReturn(Optional.of(updateduser));
+        Mockito.when((passwordEncoder.encode(updateduser.getPassword()))).thenReturn(updateduser.getPassword());
         Mockito.when(userRepository.save(updateduser)).thenReturn(updateduser);
 
         MessageDTO successUpdatesMessage = userService.update(updatedUserDTO.getId(), updatedUserDTO);

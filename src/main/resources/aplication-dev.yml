@@ -3,3 +3,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/financiase
     username: postgres
     password: postgres
+
+  jwt:
+    secret: construcaofinanciase
+    validity: 18000
+
+logging:
+  level:
+    org.springframework.security.web: DEBUG
