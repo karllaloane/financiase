@@ -23,6 +23,7 @@ public class WebSecurityConfig {
     private static final String USERS_API_URL = "/api/v1/users/**";
     private static final String AUTH_API_URL = "/api/v1/auth/**";
     private static final String PROJECTS_API_URL = "/api/v1/projects/**";
+    private static final String REWARDS_API_URL = "/api/v1/rewards/**";
     private static final String SWAGGER_URL = "/swagger-ui.html";
     private static final String ROLE_ADMIN = Role.ADMIN.name();
     private static final String ROLE_USER = Role.USER.name();
@@ -59,7 +60,9 @@ public class WebSecurityConfig {
                         SWAGGER_URL)
                 .permitAll()
 
-                .requestMatchers(PROJECTS_API_URL).hasRole(ROLE_USER)
+                .requestMatchers(
+                        PROJECTS_API_URL,
+                        REWARDS_API_URL).hasRole(ROLE_USER)
 
                 .anyRequest()
                 .authenticated()

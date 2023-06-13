@@ -20,10 +20,6 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    private static void accept(Project project) {
-        throw new ProjectAlreadyExistsException(project.getTitle());
-    }
-
     public ProjectDTO create(ProjectDTO projectDTO){
 
         //metodo para verificar se já existe projeto com mesmo nome

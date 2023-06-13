@@ -1,0 +1,23 @@
+package com.construcao.financiase.reward.dto;
+
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class RewardDTO {
+
+    @NotNull
+    @NotEmpty
+    @Size(max = 255)
+    private String description;
+
+    @NotEmpty
+    @Positive
+    @Min(value = 1)
+    private int minValue;
+
+}
