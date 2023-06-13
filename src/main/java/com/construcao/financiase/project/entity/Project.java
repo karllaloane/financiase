@@ -1,5 +1,6 @@
 package com.construcao.financiase.project.entity;
 
+import com.construcao.financiase.entity.Auditable;
 import com.construcao.financiase.project.enums.Category;
 import com.construcao.financiase.project.enums.Status;
 import com.construcao.financiase.reward.entity.Reward;
@@ -12,13 +13,13 @@ import java.util.List;
 
 @Data
 @Entity
-public class Project {
+public class Project extends Auditable {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String title;
 
     @Column(nullable = false)
