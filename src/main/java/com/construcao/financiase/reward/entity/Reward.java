@@ -13,13 +13,11 @@ public class Reward  extends Auditable {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false, columnDefinition = "DOUBLE PRECISION")
-    private double minValue = 0.0;
-
-    @Column(nullable = false, columnDefinition = "DOUBLE PRECISION")
-    private double maxValue = 0.0;
+    @Column(nullable = false)
+    private int minValue;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     private Project project;

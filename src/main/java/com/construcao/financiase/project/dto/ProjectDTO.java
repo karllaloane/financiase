@@ -2,7 +2,6 @@ package com.construcao.financiase.project.dto;
 
 import com.construcao.financiase.project.enums.Category;
 import com.construcao.financiase.project.enums.Status;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
