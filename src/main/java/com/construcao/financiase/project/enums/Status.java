@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum Status {
 
     PENDING("Pendente"),
+    REJECT("Rejeitado"),
     ACTIVE("Ativo"),
     PAUSED("Pausado"),
     CLOSED("Encerrado");

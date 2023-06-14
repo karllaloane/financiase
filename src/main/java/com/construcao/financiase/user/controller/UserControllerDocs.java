@@ -18,7 +18,7 @@ public interface UserControllerDocs {
             @ApiResponse(responseCode = "201", description = "Success user creation"),
             @ApiResponse(responseCode = "400", description = "Missing required field or an erros on validation field")
                     })
-    MessageDTO register(UserDTO userToCreateDTO);
+    MessageDTO create(UserDTO userToCreateDTO);
 
     @Operation(summary = "User exclusion operation")
     @ApiResponses(value = {

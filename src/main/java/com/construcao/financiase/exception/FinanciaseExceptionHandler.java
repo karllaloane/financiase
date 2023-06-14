@@ -22,8 +22,17 @@ import java.util.List;
 public class FinanciaseExceptionHandler extends ResponseEntityExceptionHandler {
 
     //metodo de excecao para entidades nao encontradas
-    @ExceptionHandler(EntityNotFoundException.class)
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException exception){
+
+        return buildResponseEntity(HttpStatus.NOT_FOUND,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage()));
+    }
+
+    //metodo de excecao para entidades nao encontradas
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> handleOwnerMismatchException(RuntimeException exception){
 
         return buildResponseEntity(HttpStatus.NOT_FOUND,
                 exception.getMessage(),
