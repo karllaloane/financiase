@@ -66,18 +66,6 @@ public class UserService {
 
     }
 
-    public MessageDTO create(UserDTO userToCreateDTO) {
-
-        verifyIfExists(userToCreateDTO.getUsername(), userToCreateDTO.getEmail());
-
-        User userToCreate = userMapper.toModel(userToCreateDTO);
-        userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
-
-        User createdUser = userRepository.save(userToCreate);
-
-        return creationMessage(createdUser);
-    }
-
     public MessageDTO update(Long id, UserDTO userToUpdateDTO) {
 
         //verificando se o usuario existe no banco
@@ -101,7 +89,9 @@ public class UserService {
     }
 
     public void delete(Long id) {
+
         verifyAndGetIfExists(id);
+
         userRepository.deleteById(id);
     }
 
@@ -135,4 +125,8 @@ public class UserService {
         tokenRepository.save(token);
     }
 
+    public User verifyAndGetUserIfExists(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException(email));
+    }
 }

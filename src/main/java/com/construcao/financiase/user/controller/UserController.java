@@ -21,15 +21,9 @@ public class UserController implements UserControllerDocs{
         this.userService = userService;
     }
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public MessageDTO create(@RequestBody @Valid UserDTO userToCreateDTO){
-//        return userService.create(userToCreateDTO);
-//    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageDTO register(@RequestBody @Valid UserDTO userToCreateDTO) {
+    public MessageDTO create(@RequestBody @Valid UserDTO userToCreateDTO) {
         return userService.register(userToCreateDTO);
     }
 

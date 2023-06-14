@@ -15,9 +15,9 @@ public class RewardDTO {
     @Size(max = 255)
     private String description;
 
-    @NotEmpty
+    @NotNull
     @Positive
     @Min(value = 1)
-    private int minValue;
+    private Integer minValue;
 
 }

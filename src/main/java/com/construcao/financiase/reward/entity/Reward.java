@@ -17,7 +17,7 @@ public class Reward  extends Auditable {
     private String description;
 
     @Column(nullable = false)
-    private int minValue;
+    private Integer minValue;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     private Project project;

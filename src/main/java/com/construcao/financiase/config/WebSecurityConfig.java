@@ -62,7 +62,8 @@ public class WebSecurityConfig {
 
                 .requestMatchers(
                         PROJECTS_API_URL,
-                        REWARDS_API_URL).hasRole(ROLE_USER)
+                        REWARDS_API_URL
+                        ).hasRole(ROLE_USER)
 
                 .anyRequest()
                 .authenticated()
