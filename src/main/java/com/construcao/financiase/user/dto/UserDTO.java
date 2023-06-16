@@ -35,9 +35,5 @@ public class UserDTO {
     @Size(min = 6, max = 15)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private Role role;
-
 }
 

@@ -42,6 +42,7 @@ public class User extends Auditable {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Role role;
+
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 

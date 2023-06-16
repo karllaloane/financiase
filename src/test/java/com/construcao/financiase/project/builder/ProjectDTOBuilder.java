@@ -1,8 +1,7 @@
 package com.construcao.financiase.project.builder;
 
-import com.construcao.financiase.project.dto.ProjectDTO;
+import com.construcao.financiase.project.dto.ProjectRequestDTO;
 import com.construcao.financiase.project.enums.Category;
-import com.construcao.financiase.project.enums.Status;
 import lombok.Builder;
 
 import java.time.LocalDate;
@@ -26,15 +25,12 @@ public class ProjectDTOBuilder {
     private final Category category = Category.ARTS;
 
     @Builder.Default
-    private final Status status = Status.ACTIVE;
-
-    @Builder.Default
-    private final LocalDate startDate = LocalDate.of(2023, 9, 1);
+    private final Double fundraisingGoal = 100.0;
 
     @Builder.Default
     private final LocalDate endDate = LocalDate.of(2023, 10, 1);
 
-    public ProjectDTO buildProjectDTO(){
-        return new ProjectDTO(id, title, subtitle, description, category, status, startDate, endDate);
+    public ProjectRequestDTO buildProjectDTO(){
+        return new ProjectRequestDTO(id, title, subtitle, description, category, fundraisingGoal, endDate);
     }
 }

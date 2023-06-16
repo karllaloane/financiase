@@ -7,7 +7,6 @@ import com.construcao.financiase.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,10 +20,10 @@ public class UserController implements UserControllerDocs{
         this.userService = userService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageDTO create(@RequestBody @Valid UserDTO userToCreateDTO) {
-        return userService.register(userToCreateDTO);
+    public MessageDTO createUser(@RequestBody @Valid UserDTO userToCreateDTO) {
+        return userService.createUser(userToCreateDTO);
     }
 
     @DeleteMapping("/{id}")

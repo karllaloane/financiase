@@ -3,6 +3,7 @@ package com.construcao.financiase.users.controller;
 import com.construcao.financiase.user.controller.UserController;
 import com.construcao.financiase.user.dto.MessageDTO;
 import com.construcao.financiase.user.dto.UserDTO;
+import com.construcao.financiase.user.enums.Role;
 import com.construcao.financiase.user.service.UserService;
 import com.construcao.financiase.users.builder.JwtRequestBuilder;
 import com.construcao.financiase.users.builder.UserDTOBuilder;
@@ -59,9 +60,9 @@ public class UserControllerTest {
         String creationMessage = "User gabriel@teste.com with ID 9 was successfully created";
         MessageDTO creationMessageDTO = MessageDTO.builder().message(creationMessage).build();
 
-        Mockito.when(userService.register(userToCreateDTO)).thenReturn(creationMessageDTO);
+        Mockito.when(userService.createUser(userToCreateDTO)).thenReturn(creationMessageDTO);
 
-        mockMvc.perform(MockMvcRequestBuilders.post(USERS_API_URL_PATH)
+        mockMvc.perform(MockMvcRequestBuilders.post(USERS_API_URL_PATH + "/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(userToCreateDTO)))
                 .andExpect(status().isCreated())
@@ -73,7 +74,7 @@ public class UserControllerTest {
         UserDTO userToCreateDTO = userDTOBuilder.buildUserDTO();
         userToCreateDTO.setUsername(null);
 
-        mockMvc.perform(MockMvcRequestBuilders.post(USERS_API_URL_PATH)
+        mockMvc.perform(MockMvcRequestBuilders.post(USERS_API_URL_PATH + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(userToCreateDTO)))
                 .andExpect(status().isBadRequest());

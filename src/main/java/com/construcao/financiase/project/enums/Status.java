@@ -7,10 +7,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Status {
 
-    PENDING("Pendente"),
+    CREATED("Em criação"),
+    PENDING("Avaliação Pendente"),
     REJECT("Rejeitado"),
     ACTIVE("Ativo"),
-    PAUSED("Pausado"),
     CLOSED("Encerrado");
 
     private String description;

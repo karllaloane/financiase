@@ -1,8 +1,10 @@
 package com.construcao.financiase.project.service;
 
 import com.construcao.financiase.project.builder.ProjectDTOBuilder;
-import com.construcao.financiase.project.dto.ProjectDTO;
+import com.construcao.financiase.project.dto.ProjectRequestDTO;
+import com.construcao.financiase.project.dto.ProjectResponseDTO;
 import com.construcao.financiase.project.entity.Project;
+import com.construcao.financiase.project.enums.Status;
 import com.construcao.financiase.project.exception.ProjectAlreadyExistsException;
 import com.construcao.financiase.project.mapper.ProjectMapper;
 import com.construcao.financiase.project.repository.ProjectRepository;
@@ -13,7 +15,6 @@ import com.construcao.financiase.user.service.UserService;
 import com.construcao.financiase.users.builder.UserDTOBuilder;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.hamcrest.core.Is;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,17 +59,19 @@ public class ProjectServiceTest {
     void whenNewProjectIsInformedThenItShouldBeCreated() {
 
         //given
-        ProjectDTO projectToCreateDTO = projectDTOBuilder.buildProjectDTO();
+        ProjectRequestDTO projectToCreateDTO = projectDTOBuilder.buildProjectDTO();
         Project createdProject = projectMapper.toModel(projectToCreateDTO);
+        createdProject.setStatus(Status.CREATED);
+        ProjectResponseDTO createdResponseDTO = projectMapper.toDTO(createdProject);
 
         //when
         Mockito.when(projectRepository.save(createdProject)).thenReturn(createdProject);
         Mockito.when(projectRepository.findByTitle(projectToCreateDTO.getTitle())).thenReturn(Optional.empty());
 
-        ProjectDTO createdProjectDTO = projectService.create(authenticatedUser, projectToCreateDTO);
+        ProjectResponseDTO createdProjectRequestDTO = projectService.create(authenticatedUser, projectToCreateDTO);
 
         //then
-        MatcherAssert.assertThat(createdProjectDTO, Matchers.is(IsEqual.equalTo(projectToCreateDTO)));
+        MatcherAssert.assertThat(createdProjectRequestDTO, Matchers.is(IsEqual.equalTo(createdResponseDTO)));
 
     }
 
@@ -76,7 +79,7 @@ public class ProjectServiceTest {
     void whenExistingProjectIsInformedThenExceptionShouldBeThrown() {
 
         //given
-        ProjectDTO projectToCreateDTO = projectDTOBuilder.buildProjectDTO();
+        ProjectRequestDTO projectToCreateDTO = projectDTOBuilder.buildProjectDTO();
         Project createdProject = projectMapper.toModel(projectToCreateDTO);
 
         //when
