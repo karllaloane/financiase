@@ -25,7 +25,7 @@ public class ProjectController implements ProjectControllerDocs{
         this.projectService = projectService;
     }
 
-    @PostMapping()
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public ProjectResponseDTO create(
             @AuthenticationPrincipal AuthenticatedUser authenticatedUser,
@@ -35,21 +35,19 @@ public class ProjectController implements ProjectControllerDocs{
     }
 
     @PatchMapping("/close-fundraising/{projectId}")
-    public ProjectResponseDTO closeFundraisingByUser (@PathVariable Long id) {
-        return projectService.closeFundraisingByUser(id);
+    public ProjectResponseDTO closeFundraisingByUser (@PathVariable Long projectId) {
+        return projectService.closeFundraisingByUser(projectId);
     }
 
     @PatchMapping("/submit-evaluation/{projectId}")
-    public ProjectResponseDTO submitProjectForEvaluation (@PathVariable Long id) {
-        return projectService.submitProjectForEvaluation(id);
+    public ProjectResponseDTO submitProjectForEvaluation (@PathVariable Long projectId) {
+        return projectService.submitProjectForEvaluation(projectId);
     }
 
     @GetMapping("/rewards/{id}")
     public List<RewardDTO> getAllRewards(@PathVariable Long id) {
         return projectService.getAllRewards(id);
     }
-
-
 
     @GetMapping("/category/{category}")
     public List<ProjectResponseDTO> getProjectsByCategory(@PathVariable Category category){

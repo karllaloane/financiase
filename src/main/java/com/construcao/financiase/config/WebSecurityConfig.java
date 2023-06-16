@@ -33,7 +33,9 @@ public class WebSecurityConfig {
     };
 
     private static final String[] USER_PROJECTS_API_URL = {
-            "/api/v1/projects/**",
+            "/api/v1/projects/create",
+            "/api/v1/projects/submit-evaluation/**",
+            "/api/v1/projects/close-fundraising/**"
     };
 
     private static final String[] SWAGGER_RESOURCES = {
@@ -69,6 +71,8 @@ public class WebSecurityConfig {
                 .requestMatchers(PUBLIC_PROJECTS_API_URL).permitAll()
 
                 .requestMatchers(USER_PROJECTS_API_URL).hasRole(ROLE_USER)
+
+                .requestMatchers(REWARDS_API_URL).hasRole(ROLE_USER)
 
                 .anyRequest()
                 .authenticated()

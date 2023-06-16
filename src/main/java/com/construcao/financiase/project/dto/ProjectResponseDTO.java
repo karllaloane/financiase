@@ -1,6 +1,7 @@
 package com.construcao.financiase.project.dto;
 
 import com.construcao.financiase.project.enums.Category;
+import com.construcao.financiase.project.enums.Status;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
@@ -24,6 +25,8 @@ public class ProjectResponseDTO {
     private String description;
 
     private Category category;
+
+    private Status status;
 
     private Double fundraisingGoal;
 

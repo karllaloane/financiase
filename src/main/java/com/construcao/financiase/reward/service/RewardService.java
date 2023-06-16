@@ -1,11 +1,13 @@
 package com.construcao.financiase.reward.service;
 
 import com.construcao.financiase.project.entity.Project;
+import com.construcao.financiase.project.enums.Status;
 import com.construcao.financiase.project.service.ProjectService;
 import com.construcao.financiase.reward.dto.RewardDTO;
 import com.construcao.financiase.reward.entity.Reward;
 import com.construcao.financiase.reward.exception.AuthenticatedUserMismatchOwnerException;
 import com.construcao.financiase.reward.exception.RewardAlreadyExistsException;
+import com.construcao.financiase.reward.exception.RewardCreationDeniedException;
 import com.construcao.financiase.reward.mapper.RewardMapper;
 import com.construcao.financiase.reward.repository.RewardRepository;
 import com.construcao.financiase.user.dto.AuthenticatedUser;
@@ -38,6 +40,9 @@ public class RewardService {
             throws AuthenticatedUserMismatchOwnerException {
 
         Project project = projectService.verifyAndGetProjectIfExists(id);
+
+        if(project.getStatus() != Status.CREATED)
+            throw new RewardCreationDeniedException();
 
         verifyIfAuthenticatedUserIsProjectOwner(authenticatedUser, project);
 

@@ -4,9 +4,18 @@ sudo: false
 jdk: openjdk17
 install: true
 
+addons:
+  sonarcloud:
+    organization: "SONAR_ORGANIZATION"
+    token: "SONAR_TOKEN"
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean verify sonar:sonar -Pcoverage
+
 cache:
   directories:
     - $HOME/.m2
+    - $HOME/.sonar/cache
 
 before_install:
   - chmod +x mvnw
