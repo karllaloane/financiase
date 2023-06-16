@@ -4,6 +4,7 @@ import com.construcao.financiase.project.builder.ProjectDTOBuilder;
 import com.construcao.financiase.project.dto.ProjectRequestDTO;
 import com.construcao.financiase.project.dto.ProjectResponseDTO;
 import com.construcao.financiase.project.entity.Project;
+import com.construcao.financiase.project.enums.Status;
 import com.construcao.financiase.project.mapper.ProjectMapper;
 import com.construcao.financiase.project.service.ProjectService;
 import com.construcao.financiase.user.dto.AuthenticatedUser;
@@ -60,12 +61,13 @@ public class ProjectControllerTest {
     void whenPOSTIsCalledThenStatusCreatedShouldBeReturned() throws Exception {
         ProjectRequestDTO createdProjectRequestDTO = projectDTOBuilder.buildProjectDTO();
         Project createProject = projectMapper.toModel(createdProjectRequestDTO);
-        ProjectResponseDTO createdRespondeDTO = projectMapper.toDTO(createProject);
+        createProject.setStatus(Status.CREATED);
+        ProjectResponseDTO createdResponseDTO = projectMapper.toDTO(createProject);
 
         Mockito.when(projectService.create(ArgumentMatchers.any(AuthenticatedUser.class), ArgumentMatchers.eq(createdProjectRequestDTO)))
-                .thenReturn(createdRespondeDTO);
+                .thenReturn(createdResponseDTO);
 
-        mockMvc.perform(MockMvcRequestBuilders.post(PROJECT_API_URL_PATH)
+        mockMvc.perform(MockMvcRequestBuilders.post(PROJECT_API_URL_PATH + "/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonConversionUtils.asJsonString(createdProjectRequestDTO)))
                 .andExpect(status().isCreated())
@@ -84,7 +86,7 @@ public class ProjectControllerTest {
         ProjectRequestDTO createdProjectRequestDTO = projectDTOBuilder.buildProjectDTO();
         createdProjectRequestDTO.setTitle(null);
 
-        mockMvc.perform(MockMvcRequestBuilders.post(PROJECT_API_URL_PATH)
+        mockMvc.perform(MockMvcRequestBuilders.post(PROJECT_API_URL_PATH + "/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonConversionUtils.asJsonString(createdProjectRequestDTO)))
                 .andExpect(status().isBadRequest());
