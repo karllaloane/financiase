@@ -1,6 +1,9 @@
 package com.construcao.financiase.users.builder;
 
 import com.construcao.financiase.user.dto.UserDTO;
+import com.construcao.financiase.user.enums.Role;
+import jakarta.persistence.Column;
+import jakarta.persistence.Enumerated;
 import lombok.Builder;
 
 @Builder

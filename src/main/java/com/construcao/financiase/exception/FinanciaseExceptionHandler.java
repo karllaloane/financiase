@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,8 +23,17 @@ import java.util.List;
 public class FinanciaseExceptionHandler extends ResponseEntityExceptionHandler {
 
     //metodo de excecao para entidades nao encontradas
-    @ExceptionHandler(EntityNotFoundException.class)
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException exception){
+
+        return buildResponseEntity(HttpStatus.NOT_FOUND,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage()));
+    }
+
+    //metodo de excecao para entidades nao encontradas
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> handleOwnerMismatchException(RuntimeException exception){
 
         return buildResponseEntity(HttpStatus.NOT_FOUND,
                 exception.getMessage(),
@@ -33,6 +43,14 @@ public class FinanciaseExceptionHandler extends ResponseEntityExceptionHandler {
     //metodo de excecao para entidades duplicadas
     @ExceptionHandler(EntityExistsException.class)
     public ResponseEntity<Object> handleEntityExistsException(EntityExistsException exception){
+
+        return buildResponseEntity(HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage()));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Object> handleStatusAcessException(AccessDeniedException exception){
 
         return buildResponseEntity(HttpStatus.BAD_REQUEST,
                 exception.getMessage(),

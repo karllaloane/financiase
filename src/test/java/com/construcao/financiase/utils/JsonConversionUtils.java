@@ -1,6 +1,5 @@
 package com.construcao.financiase.utils;
 
-import com.construcao.financiase.project.dto.ProjectDTO;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

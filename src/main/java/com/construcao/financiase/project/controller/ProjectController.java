@@ -1,11 +1,18 @@
 package com.construcao.financiase.project.controller;
 
-import com.construcao.financiase.project.dto.ProjectDTO;
+import com.construcao.financiase.project.dto.ProjectRequestDTO;
+import com.construcao.financiase.project.dto.ProjectResponseDTO;
+import com.construcao.financiase.project.enums.Category;
 import com.construcao.financiase.project.service.ProjectService;
+import com.construcao.financiase.reward.dto.RewardDTO;
+import com.construcao.financiase.user.dto.AuthenticatedUser;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController("ProjectController")
 @RequestMapping("/api/v1/projects")
@@ -18,14 +25,34 @@ public class ProjectController implements ProjectControllerDocs{
         this.projectService = projectService;
     }
 
-    @PostMapping
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ProjectDTO create(@RequestBody @Valid ProjectDTO projectDTO) {
+    public ProjectResponseDTO create(
+            @AuthenticationPrincipal AuthenticatedUser authenticatedUser,
+            @RequestBody @Valid ProjectRequestDTO projectRequestDTO) {
 
-        //anotacoes no parâmetro do método
-        //@RequestBody: a operação virá de um corpo
-        //@Valid: validações dos atributos bean validation
+        return projectService.create(authenticatedUser, projectRequestDTO);
+    }
 
-        return projectService.create(projectDTO);
+    @PatchMapping("/close-fundraising/{projectId}")
+    public ProjectResponseDTO closeFundraisingByUser (@PathVariable Long id) {
+        return projectService.closeFundraisingByUser(id);
+    }
+
+    @PatchMapping("/submit-evaluation/{projectId}")
+    public ProjectResponseDTO submitProjectForEvaluation (@PathVariable Long id) {
+        return projectService.submitProjectForEvaluation(id);
+    }
+
+    @GetMapping("/rewards/{id}")
+    public List<RewardDTO> getAllRewards(@PathVariable Long id) {
+        return projectService.getAllRewards(id);
+    }
+
+
+
+    @GetMapping("/category/{category}")
+    public List<ProjectResponseDTO> getProjectsByCategory(@PathVariable Category category){
+        return projectService.getProjectsByCategory(category);
     }
 }

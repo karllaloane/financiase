@@ -1,8 +1,6 @@
 package com.construcao.financiase.project.dto;
 
 import com.construcao.financiase.project.enums.Category;
-import com.construcao.financiase.project.enums.Status;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
@@ -15,7 +13,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectDTO {
+public class ProjectRequestDTO {
 
     private Long id;
 
@@ -39,13 +37,9 @@ public class ProjectDTO {
     private Category category;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    @NotNull
-    @FutureOrPresent
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/m/aaaa")
-    private LocalDate startDate;
+    @Positive
+    @Min(value = 1)
+    private Double fundraisingGoal;
 
     @NotNull
     @Future
