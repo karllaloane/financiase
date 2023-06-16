@@ -116,7 +116,10 @@ public class ProjectService {
         Project project = verifyAndGetProjectIfExists(id);
 
         if(project.getStatus() != Status.CREATED)
-            throw new StatusNotAllowedException("Status não permitido! O projeto já foi avaliado!");
+            throw new StatusNotAllowedException("Status não permitido ou o projeto já foi avaliado!");
+
+        if(project.getRewards().isEmpty())
+            throw new StatusNotAllowedException("Não é possível enviar para avaliação sem recompensas cadastradas.");
 
         project.setStatus(Status.PENDING);
 
