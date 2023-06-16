@@ -6,8 +6,8 @@ install: true
 
 addons:
   sonarcloud:
-    organization: "SONAR_ORGANIZATION"
-    token: "SONAR_TOKEN"
+    organization: "karllaloane"
+    token: "OYkXBcQ2wnZRd3iS4tYXgZphcpqWviObjp0nt2qBd4jGRJ518IbcfxgwtnR+R0oP55kz8lroCEPSvFWoOrLGUVzLVDHjCfW7cHJIbZaSt6RTzvYu/qxkjLxemSzdVRa3aLrsEmLXn+oL7bp3VQF8oVJ+JlDB6EbWCRNZ9BBiEhw2YqTBS35Fo3FILjtjwckLrHMVNb1DoaUpQFmIfw9SUY11nIH3VRT9Sm4pS1q0MjMQm7cSQhL8UbIjvQ0j6knF4eUEKTyuFk83sEtgBTWUP01EFyEAFoyeSJNJY1Ca0D4raYAlhkgx1/mSFA87nrXZG+8Y1C5+Du+GEqEsamQuyQmCUqs8Q403Pl/pKoiaT4omWNUbQ7aNSQf1DBTgnvzQywC+fUDYtD0Gun1Biwp4tCzaQmqeKfJWk/g9DoBmEM36gAu36EhN4XBC8RzqFS2mv9T4CRsZBcNaF08YhvnYZC/OWsPN6huq15d/3bXlet/tVp3kL29fmF0Qso1Vp+ZVdiz0P9LQ7QnLMBLReV7rZbndJT2YCEEwF9KO4Wtaw52x9wDU2ijGSy4geZbnIYo8mqI+J+NU9XUGpk5W6804GylkgGEHxU4obrr9tDezF+A/uFU+SBMXJbfJ/yFGIoQiEFQdYCtoMXIJ64hG0rnC8b4RpzmzekH7wJU1X2SkHk0="
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
   - mvn clean verify sonar:sonar -Pcoverage

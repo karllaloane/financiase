@@ -1,6 +1,7 @@
 package com.construcao.financiase.project.entity;
 
 import com.construcao.financiase.entity.Auditable;
+import com.construcao.financiase.moderation.entity.EvaluationResult;
 import com.construcao.financiase.project.enums.Category;
 import com.construcao.financiase.project.enums.Status;
 import com.construcao.financiase.reward.entity.Reward;
@@ -50,4 +51,7 @@ public class Project extends Auditable {
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     private User owner;
+
+    @OneToOne(mappedBy = "project")
+    private EvaluationResult evaluation;
 }
