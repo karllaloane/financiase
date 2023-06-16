@@ -1,7 +1,8 @@
 package com.construcao.financiase.project.controller;
 
 import com.construcao.financiase.project.builder.ProjectDTOBuilder;
-import com.construcao.financiase.project.dto.ProjectDTO;
+import com.construcao.financiase.project.dto.ProjectRequestDTO;
+import com.construcao.financiase.project.dto.ProjectResponseDTO;
 import com.construcao.financiase.project.entity.Project;
 import com.construcao.financiase.project.mapper.ProjectMapper;
 import com.construcao.financiase.project.service.ProjectService;
@@ -57,20 +58,21 @@ public class ProjectControllerTest {
 
     @Test
     void whenPOSTIsCalledThenStatusCreatedShouldBeReturned() throws Exception {
-        ProjectDTO createdProjectDTO = projectDTOBuilder.buildProjectDTO();
-        Project createProject = projectMapper.toModel(createdProjectDTO);
+        ProjectRequestDTO createdProjectRequestDTO = projectDTOBuilder.buildProjectDTO();
+        Project createProject = projectMapper.toModel(createdProjectRequestDTO);
+        ProjectResponseDTO createdRespondeDTO = projectMapper.toDTO(createProject);
 
-        Mockito.when(projectService.create(ArgumentMatchers.any(AuthenticatedUser.class), ArgumentMatchers.eq(createdProjectDTO)))
-                .thenReturn(createdProjectDTO);
+        Mockito.when(projectService.create(ArgumentMatchers.any(AuthenticatedUser.class), ArgumentMatchers.eq(createdProjectRequestDTO)))
+                .thenReturn(createdRespondeDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.post(PROJECT_API_URL_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(JsonConversionUtils.asJsonString(createdProjectDTO)))
+                        .content(JsonConversionUtils.asJsonString(createdProjectRequestDTO)))
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(createdProjectDTO.getId().intValue())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.title", Is.is(createdProjectDTO.getTitle())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.description", Is.is(createdProjectDTO.getDescription())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.subtitle", Is.is(createdProjectDTO.getSubtitle())));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(createdProjectRequestDTO.getId().intValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title", Is.is(createdProjectRequestDTO.getTitle())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description", Is.is(createdProjectRequestDTO.getDescription())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.subtitle", Is.is(createdProjectRequestDTO.getSubtitle())));
         //.andExpect(MockMvcResultMatchers.jsonPath("$.category", Is.is(createdProjectDTO.getCategory())));
         //.andExpect(MockMvcResultMatchers.jsonPath("$.status", Is.is(createdProjectDTO.getStatus())))
         //.andExpect(MockMvcResultMatchers.jsonPath("$.startDate", Is.is(createdProjectDTO.getStartDate())))
@@ -79,12 +81,12 @@ public class ProjectControllerTest {
 
     @Test
     void whenPOSTItsCalledWithoutRequiredFieldThenRequestStatusShoulBeInformed() throws Exception {
-        ProjectDTO createdProjectDTO = projectDTOBuilder.buildProjectDTO();
-        createdProjectDTO.setTitle(null);
+        ProjectRequestDTO createdProjectRequestDTO = projectDTOBuilder.buildProjectDTO();
+        createdProjectRequestDTO.setTitle(null);
 
         mockMvc.perform(MockMvcRequestBuilders.post(PROJECT_API_URL_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonConversionUtils.asJsonString(createdProjectDTO)))
+                .content(JsonConversionUtils.asJsonString(createdProjectRequestDTO)))
                 .andExpect(status().isBadRequest());
     }
 

@@ -5,9 +5,11 @@ import com.construcao.financiase.project.entity.Project;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 @Entity
-public class Reward  extends Auditable {
+public class Reward extends Auditable {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -15,6 +17,9 @@ public class Reward  extends Auditable {
 
     @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
+    private LocalDate expectedDeliveryDate;
 
     @Column(nullable = false)
     private Integer minValue;

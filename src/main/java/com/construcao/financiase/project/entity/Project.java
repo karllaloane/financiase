@@ -37,6 +37,9 @@ public class Project extends Auditable {
     private Status status;
 
     @Column(nullable = false)
+    private Double fundraisingGoal;
+
+    @Column
     private LocalDate startDate;
 
     @Column(nullable = false)

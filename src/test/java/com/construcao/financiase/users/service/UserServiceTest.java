@@ -1,12 +1,16 @@
 package com.construcao.financiase.users.service;
 
+import com.construcao.financiase.config.ApplicationConfig;
 import com.construcao.financiase.user.dto.MessageDTO;
 import com.construcao.financiase.user.dto.UserDTO;
 import com.construcao.financiase.user.entity.User;
+import com.construcao.financiase.user.enums.Role;
 import com.construcao.financiase.user.exception.UserNameAlreadyExistsException;
 import com.construcao.financiase.user.exception.UserNotFoundException;
 import com.construcao.financiase.user.mapper.UserMapper;
 import com.construcao.financiase.user.repository.UserRepository;
+import com.construcao.financiase.user.service.AuthenticationService;
+import com.construcao.financiase.user.service.JwtService;
 import com.construcao.financiase.user.service.UserService;
 import com.construcao.financiase.users.builder.UserDTOBuilder;
 import org.hamcrest.MatcherAssert;
@@ -37,6 +41,15 @@ public class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
+    @InjectMocks
+    private JwtService jwtService;
+
+    @InjectMocks
+    private ApplicationConfig applicationConfig;
+
+    @InjectMocks
+    private AuthenticationService authenticationService;
+
     private UserDTOBuilder userDTOBuilder;
 
     @BeforeEach
@@ -48,6 +61,7 @@ public class UserServiceTest {
     void whenNewUserIsInformedThenItShouldBeCreated(){
         UserDTO createdUserDTO = userDTOBuilder.buildUserDTO();
         User createdUser = userMapper.toModel(createdUserDTO);
+        createdUser.setRole(Role.USER);
         String expectedCreationMessage = "User gabriel@teste.com with ID 9 was successfully created";
 
         String expectedUsername = createdUserDTO.getUsername();
@@ -58,7 +72,7 @@ public class UserServiceTest {
         Mockito.when((passwordEncoder.encode(createdUser.getPassword()))).thenReturn(createdUser.getPassword());
         Mockito.when(userRepository.save(createdUser)).thenReturn(createdUser);
 
-        MessageDTO creationMessage = userService.create(createdUserDTO);
+        MessageDTO creationMessage = userService.create(createdUserDTO, Role.USER);
 
         MatcherAssert.assertThat(expectedCreationMessage, Matchers.is(Matchers.equalTo(creationMessage.getMessage())));
     }
@@ -73,7 +87,7 @@ public class UserServiceTest {
         Mockito.when(userRepository.findByUsername(expectedUsername))
                 .thenReturn(Optional.of(duplicatedUser));
 
-        Assertions.assertThrows(UserNameAlreadyExistsException.class, () -> userService.create(duplicatedUserDTO));
+        Assertions.assertThrows(UserNameAlreadyExistsException.class, () -> userService.create(duplicatedUserDTO, Role.USER));
 
     }
 
@@ -87,7 +101,7 @@ public class UserServiceTest {
         Mockito.when(userRepository.findByUsername(expectedUsername))
                 .thenReturn(Optional.of(duplicatedUser));
 
-        Assertions.assertThrows(UserNameAlreadyExistsException.class, () -> userService.create(duplicatedUserDTO));
+        Assertions.assertThrows(UserNameAlreadyExistsException.class, () -> userService.create(duplicatedUserDTO, Role.USER));
 
     }
 

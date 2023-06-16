@@ -21,10 +21,7 @@ public class UserDTOBuilder {
     @Builder.Default
     private String password = "12345678";
 
-    @Builder.Default
-    private Role role = Role.USER;
-
     public UserDTO buildUserDTO(){
-        return new UserDTO(id, username, email, password, role);
+        return new UserDTO(id, username, email, password);
     }
 }
